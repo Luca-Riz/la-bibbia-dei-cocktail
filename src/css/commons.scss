@@ -9,3 +9,11 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
+
+.cursor-pointer{
+    cursor: pointer
+}
+
+input:focus {
+    outline: 0;
+}
