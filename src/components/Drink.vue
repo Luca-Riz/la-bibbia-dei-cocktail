@@ -1,16 +1,16 @@
 <template>
   <div>
-    
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
-        <div class="col-4">
+        <div class="col-4 position-relative">
           <!-- src class in api "strImageSource"; alt name "strDrink"-->
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Klassiche_Margarita.jpg" class="img-fluid rounded-start" alt="#"> 
+          <div v-show="!loaded" class="lds-dual-ring loaded-center"></div>
+          <img v-show="loaded" :src="drink.strDrinkThumb" class="img-fluid rounded-start" :alt="drink.strDrink" @load="loading">
         </div>
         <div class="col-8 fs08">
           <div class="card-body">
             <!-- name "strDrink"-->
-            <h5 class="card-title">Margarita</h5>
+            <h5 class="card-title">{{drink.strDrink}}</h5>
 
             <!-- classi ingredienti api scritte direttamente come testo -->
             <p class="card-text">
@@ -25,13 +25,25 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
   name: 'Drink',
+  props: {
+    drink: Object
+  },
+  data(){
+    return {
+      loaded: false,
+    }
+  },
+  methods: {
+    loading(){
+      this.loaded = true;
+    }
+  }
 }
 </script>
 
@@ -39,6 +51,13 @@ export default {
 
 .fs08{
   font-size: 0.8rem;
+}
+
+.loaded-center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 </style>

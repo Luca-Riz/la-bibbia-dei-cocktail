@@ -21,12 +21,7 @@
         <!-- inizio componente di ricerca -->
         <div class="row mt-2">
           <div class="col-12">
-            <form>
-              <div class="input-icon">
-                <input class="input-search" type="text" name="search" placeholder="Cerca...">
-                <i class="fas fa-search"></i>
-              </div>
-            </form>
+            <Search/>
           </div>
         </div>
         <!-- fine componente di ricerca -->
@@ -37,7 +32,9 @@
     <main>
       
       <div class="container container-sm">
-        <Drink />
+        <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
+          <Drink v-for="(cocktail , index) in limitCocktail" :key="index" :drink="cocktail"/>
+        </div>
       </div>
 
     </main>
@@ -50,11 +47,36 @@
 
 <script>
 import Drink from './components/Drink.vue'
+import Search from './components/Search.vue'
+import axios from './axios.js';
 
 export default {
   name: 'App',
   components: {
-    Drink
+    Drink,
+    Search
+  },
+  data(){
+    return {
+      listCocktail: [],
+      limitCocktail: [],
+      limit: 10,
+      busy: false
+    }
+  },
+  async mounted(){
+    let resultCocktail = await axios('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
+    this.listCocktail = resultCocktail.drinks;
+
+    this.loadMore();
+  },
+  methods: {
+    loadMore(){
+      this.busy = true;
+      const append = this.listCocktail.slice(this.limitCocktail.length, this.limitCocktail.length + this.limit);
+      this.limitCocktail = this.limitCocktail.concat(append);
+      this.busy = false;
+    }
   }
 }
 </script>
@@ -75,29 +97,6 @@ export default {
   font-size: 1.3rem;
   font-weight: 700;
 }
-
-// start campo input di ricerca
-.input-search{
-  width: 100%;
-  padding: 6px 6px 6px 40px;
-  border-radius: 5px;
-  border: 1px solid gray;
-  background: rgb(240, 238, 238);
-}
-
-.input-icon{
-  position: relative;
-
-  & svg{
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    font-size: 1.2rem;
-    color: gray;
-  }
-}
-
-// fine campo input di ricerca
 
 // fine content header
 </style>
