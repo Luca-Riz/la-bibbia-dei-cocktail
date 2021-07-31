@@ -34,7 +34,11 @@
     </header>
     <!-- fine header -->
     <!-- inizio contenuto principale -->
-    <main></main>
+    <main>
+
+      <Drink />
+
+    </main>
     <!-- fine contenuto principale -->
     <!-- inizio piè di pagina -->
     <footer></footer>
@@ -43,12 +47,12 @@
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
+import Drink from './components/Drink.vue'
 
 export default {
   name: 'App',
   components: {
-    //HelloWorld
+    Drink
   }
 }
 </script>
