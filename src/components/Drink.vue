@@ -3,11 +3,11 @@
     
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-4">
           <!-- src class in api "strImageSource"; alt name "strDrink"-->
           <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Klassiche_Margarita.jpg" class="img-fluid rounded-start" alt="#"> 
         </div>
-        <div class="col-md-8">
+        <div class="col-8 fs08">
           <div class="card-body">
             <!-- name "strDrink"-->
             <h5 class="card-title">Margarita</h5>
@@ -36,5 +36,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.fs08{
+  font-size: 0.8rem;
+}
 
 </style>

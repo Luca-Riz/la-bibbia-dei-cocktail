@@ -35,8 +35,10 @@
     <!-- fine header -->
     <!-- inizio contenuto principale -->
     <main>
-
-      <Drink />
+      
+      <div class="container container-sm">
+        <Drink />
+      </div>
 
     </main>
     <!-- fine contenuto principale -->
