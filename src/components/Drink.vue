@@ -14,13 +14,13 @@
 
             <!-- classi ingredienti api scritte direttamente come testo -->
             <p class="card-text">
-              "strIngredient1": "Tequila", <br>
+              {{drink.idDrink}} <br>
             "strIngredient2": "Lime Juice", <br>
-            "strIngredient3": "Agave syrup",
             </p>
 
             <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
             <p class="card-text"><small class="text-muted">Prezzo: 8 € </small></p>
+            <button @click='info' >Info</button>
           </div>
         </div>
       </div>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Drink',
   props: {
@@ -37,11 +39,21 @@ export default {
   data(){
     return {
       loaded: false,
+      urlInfo: '',
+      infoCocktail: ''
     }
   },
   methods: {
     loading(){
       this.loaded = true;
+    },
+    info(){
+      this.urlInfo = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
+      // console.log(this.urlInfo);
+      this.infoCocktail = axios
+                              .get(this.urlInfo)
+                              .then(response => this.infoCocktail = response.data.drinks); 
+      console.log(this.infoCocktail);
     }
   }
 }
