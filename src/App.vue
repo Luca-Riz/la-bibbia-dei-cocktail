@@ -67,7 +67,7 @@ export default {
   async mounted(){
     let resultCocktail = await axios('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
     this.listCocktail = resultCocktail.drinks;
-    // console.log(this.listCocktail);
+    console.log(this.listCocktail);
 
     this.loadMore();
   },

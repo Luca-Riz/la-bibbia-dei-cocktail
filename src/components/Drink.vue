@@ -14,7 +14,7 @@
 
             <!-- classi ingredienti api scritte direttamente come testo -->
             <p class="card-text">
-              {{drink.idDrink}} <br>
+             i1: {{infoCocktail.strIngredient1}} <br>
             "strIngredient2": "Lime Juice", <br>
             </p>
 
@@ -48,13 +48,13 @@ export default {
       this.loaded = true;
     },
     info(){
-      this.urlInfo = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
+      this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
       // console.log(this.urlInfo);
       this.infoCocktail = axios
                               .get(this.urlInfo)
-                              .then(response => (this.infoCocktail = response.data))
+                              .then(response => (this.infoCocktail = response.data.drinks))
                               .catch(error => console.log(error));
-      // console.log(this.infoCocktail);
+      console.log(this.infoCocktail);
     }
   }
 }
