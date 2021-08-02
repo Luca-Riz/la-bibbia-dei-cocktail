@@ -33,7 +33,12 @@
       
       <div class="container container-sm">
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
-          <Drink v-for="(cocktail , index) in limitCocktail" :key="index" :drink="cocktail"/>
+          <div v-if="searchCocktail !== null">
+            <Drink v-for="(cocktail, index) in limitCocktail" :key="index" :drink="cocktail"/>
+          </div>
+          <div v-else>
+            <h3>Nessun cocktail trovato, riprova.</h3>
+          </div>
         </div>
       </div>
 
@@ -94,7 +99,9 @@ export default {
       }
       this.searchCocktail = itemsSearch.drinks;
       this.limitCocktail = [];
-      this.loadMore();
+      if(this.searchCocktail !== null){
+        this.loadMore();
+      }
     }
   }
 }
