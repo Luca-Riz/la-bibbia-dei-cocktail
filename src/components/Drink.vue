@@ -13,10 +13,15 @@
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
             <!-- classi ingredienti api scritte direttamente come testo -->
-            <p class="card-text">
-             i1: {{infoCocktail.strIngredient1}} <br>
-            "strIngredient2": "Lime Juice", <br>
-            </p>
+            <div class="card-text" v-for="value in infoCocktail" :key="value">
+              <ul>
+                <li v-if="value.strIngredient1 != null ">{{value.strIngredient1}}</li>  
+                <li v-if="value.strIngredient2 != null ">{{value.strIngredient2}}</li>  
+                <li v-if="value.strIngredient3 != null ">{{value.strIngredient3}}</li>  
+                <li v-if="value.strIngredient4 != null ">{{value.strIngredient4}}</li>  
+                <li v-if="value.strIngredient5 != null ">{{value.strIngredient5}}</li>  
+              </ul>
+            </div>
 
             <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
             <p class="card-text"><small class="text-muted">Prezzo: 8 € </small></p>
@@ -51,9 +56,10 @@ export default {
       this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
       // console.log(this.urlInfo);
       this.infoCocktail = axios
-        .get(this.urlInfo)
-        .then(response => (this.infoCocktail = response.data.drinks))
-        .catch(error => console.log(error));
+                              .get(this.urlInfo)
+                              .then(response => (this.infoCocktail = response.data.drinks))
+                              .catch(error => console.log(error));
+      // console.log(this.infoCocktail);
     }
   }
 }
