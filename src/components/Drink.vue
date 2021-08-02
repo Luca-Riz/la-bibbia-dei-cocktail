@@ -52,8 +52,9 @@ export default {
       // console.log(this.urlInfo);
       this.infoCocktail = axios
                               .get(this.urlInfo)
-                              .then(response => this.infoCocktail = response.data.drinks); 
-      console.log(this.infoCocktail);
+                              .then(response => (this.infoCocktail = response.data))
+                              .catch(error => console.log(error));
+      // console.log(this.infoCocktail);
     }
   }
 }
