@@ -21,7 +21,7 @@
         <!-- inizio componente di ricerca -->
         <div class="row mt-2">
           <div class="col-12">
-            <Search/>
+            <Search @keywords="search"/>
           </div>
         </div>
         <!-- fine componente di ricerca -->
@@ -60,6 +60,8 @@ export default {
     return {
       listCocktail: [],
       limitCocktail: [],
+      searchCocktail: [],
+      statusSearch: false,
       limit: 10,
       busy: false
     }
@@ -67,16 +69,32 @@ export default {
   async mounted(){
     let resultCocktail = await axios('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
     this.listCocktail = resultCocktail.drinks;
-    console.log(this.listCocktail);
 
     this.loadMore();
   },
   methods: {
     loadMore(){
+      let property = 'listCocktail';
+      if(this.statusSearch){
+        property = 'searchCocktail';
+      } 
       this.busy = true;
-      const append = this.listCocktail.slice(this.limitCocktail.length, this.limitCocktail.length + this.limit);
+      const append = this[property].slice(this.limitCocktail.length, this.limitCocktail.length + this.limit);
       this.limitCocktail = this.limitCocktail.concat(append);
       this.busy = false;
+    },
+    async search(word){
+      let itemsSearch = [];
+      if(word){
+        itemsSearch = await axios('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + word);
+        this.statusSearch = true;
+      } else {
+        itemsSearch = [];
+        this.statusSearch = false;
+      }
+      this.searchCocktail = itemsSearch.drinks;
+      this.limitCocktail = [];
+      this.loadMore();
     }
   }
 }

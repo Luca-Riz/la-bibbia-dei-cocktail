@@ -51,10 +51,9 @@ export default {
       this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
       // console.log(this.urlInfo);
       this.infoCocktail = axios
-                              .get(this.urlInfo)
-                              .then(response => (this.infoCocktail = response.data.drinks))
-                              .catch(error => console.log(error));
-      console.log(this.infoCocktail);
+        .get(this.urlInfo)
+        .then(response => (this.infoCocktail = response.data.drinks))
+        .catch(error => console.log(error));
     }
   }
 }
