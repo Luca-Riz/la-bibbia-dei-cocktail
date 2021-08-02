@@ -13,10 +13,13 @@
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
             <!-- classi ingredienti api scritte direttamente come testo -->
-            <p class="card-text">
-             i1: {{infoCocktail.strIngredient1}} <br>
-            "strIngredient2": "Lime Juice", <br>
-            </p>
+            <div class="card-text" v-for="value in infoCocktail" :key="value">
+            <ul>
+              <li>{{value.strIngredient1}}</li>  
+              <li>{{value.strIngredient2}}</li>  
+              <li>{{value.strIngredient3}}</li>  
+            </ul>
+            </div>
 
             <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
             <p class="card-text"><small class="text-muted">Prezzo: 8 € </small></p>
@@ -54,7 +57,7 @@ export default {
                               .get(this.urlInfo)
                               .then(response => (this.infoCocktail = response.data.drinks))
                               .catch(error => console.log(error));
-      console.log(this.infoCocktail);
+      // console.log(this.infoCocktail);
     }
   }
 }
