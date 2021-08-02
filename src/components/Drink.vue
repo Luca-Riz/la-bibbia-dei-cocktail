@@ -13,12 +13,14 @@
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
             <!-- classi ingredienti api scritte direttamente come testo -->
-            <div class="card-text" v-for="value in infoCocktail" :key="value">
-            <ul>
-              <li>{{value.strIngredient1}}</li>  
-              <li>{{value.strIngredient2}}</li>  
-              <li>{{value.strIngredient3}}</li>  
-            </ul>
+            <div class="card-text" v-for="(value, index) in infoCocktail" :key="index">
+              <ul>
+                <li v-if="value.strIngredient1 != null ">{{value.strIngredient1}}</li>  
+                <li v-if="value.strIngredient2 != null ">{{value.strIngredient2}}</li>  
+                <li v-if="value.strIngredient3 != null ">{{value.strIngredient3}}</li>  
+                <li v-if="value.strIngredient4 != null ">{{value.strIngredient4}}</li>  
+                <li v-if="value.strIngredient5 != null ">{{value.strIngredient5}}</li>  
+              </ul>
             </div>
 
             <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
