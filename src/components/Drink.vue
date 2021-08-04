@@ -16,16 +16,16 @@
 
             <div class="card-text" >
               <ul>
-                <li v-if="this.infoCocktail.strIngredient1">{{this.infoCocktail.strIngredient1}}</li>  
-                <li v-if="this.infoCocktail.strIngredient2">{{this.infoCocktail.strIngredient2}}</li>  
-                <li v-if="this.infoCocktail.strIngredient3">{{this.infoCocktail.strIngredient3}}</li>  
-                <li v-if="this.infoCocktail.strIngredient4">{{this.infoCocktail.strIngredient4}}</li>  
-                <li v-if="this.infoCocktail.strIngredient5">{{this.infoCocktail.strIngredient5}}</li>  
+                <li v-if="this.infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>  
+                <li v-if="this.infoCocktail.strIngredient2">{{infoCocktail.strIngredient2}}</li>  
+                <li v-if="this.infoCocktail.strIngredient3">{{infoCocktail.strIngredient3}}</li>  
+                <li v-if="this.infoCocktail.strIngredient4">{{infoCocktail.strIngredient4}}</li>  
+                <li v-if="this.infoCocktail.strIngredient5">{{infoCocktail.strIngredient5}}</li>  
               </ul>
             </div>
 
             <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
-            <p class="card-text"><small class="text-muted">Prezzo: 8 € </small></p>
+            <p class="card-text"><small class="text-muted">Prezzo: {{drink.price}} € </small></p>
             <button @click='info' >Info</button>
           </div>
         </div>
