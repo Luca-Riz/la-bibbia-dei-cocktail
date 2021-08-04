@@ -16,11 +16,11 @@
 
             <div class="card-text" >
               <ul>
-                <li v-if="this.infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>  
-                <li v-if="this.infoCocktail.strIngredient2">{{infoCocktail.strIngredient2}}</li>  
-                <li v-if="this.infoCocktail.strIngredient3">{{infoCocktail.strIngredient3}}</li>  
-                <li v-if="this.infoCocktail.strIngredient4">{{infoCocktail.strIngredient4}}</li>  
-                <li v-if="this.infoCocktail.strIngredient5">{{infoCocktail.strIngredient5}}</li>  
+                <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>  
+                <li v-if="infoCocktail.strIngredient2">{{infoCocktail.strIngredient2}}</li>  
+                <li v-if="infoCocktail.strIngredient3">{{infoCocktail.strIngredient3}}</li>  
+                <li v-if="infoCocktail.strIngredient4">{{infoCocktail.strIngredient4}}</li>  
+                <li v-if="infoCocktail.strIngredient5">{{infoCocktail.strIngredient5}}</li>  
               </ul>
             </div>
 
