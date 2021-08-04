@@ -13,18 +13,6 @@
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
             <!-- classi ingredienti api scritte direttamente come testo -->
-            <!--
-            <div class="card-text" v-for="(value, index) in infoCocktail" :key="index">
-              <ul>
-                <li v-if="value.strIngredient1 != null ">{{value.strIngredient1}}</li>  
-                <li v-if="value.strIngredient2 != null ">{{value.strIngredient2}}</li>  
-                <li v-if="value.strIngredient3 != null ">{{value.strIngredient3}}</li>  
-                <li v-if="value.strIngredient4 != null ">{{value.strIngredient4}}</li>  
-                <li v-if="value.strIngredient5 != null ">{{value.strIngredient5}}</li>  
-              </ul>
-            </div>
-            -->
-
             <div class="card-text">
               <ul>
                 <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>
@@ -34,11 +22,8 @@
                 <li v-if="infoCocktail.strIngredient5">{{infoCocktail.strIngredient5}}</li>
               </ul>
             </div>
-
-
-
             <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
-            <p class="card-text"><small class="text-muted">Prezzo: 8 € </small></p>
+            <p class="card-text"><small class="text-muted">Prezzo: {{drink.price}} € </small></p>
             <button @click='info' >Info</button>
           </div>
         </div>
@@ -59,13 +44,16 @@ export default {
     return {
       loaded: false,
       urlInfo: '',
-      infoCocktail: ''
+      infoCocktail: '',
+      precIdDrink: '',
+      cancelSource: null
     }
   },
   methods: {
     loading(){
       this.loaded = true;
     },
+
     info(){
       this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
       // console.log(this.urlInfo);
@@ -73,7 +61,7 @@ export default {
                               .get(this.urlInfo)
                               .then(response => (this.infoCocktail = response.data.drinks[0]))
                               .catch(error => console.log(error));
-      // console.log(this.infoCocktail);
+      console.log(this.infoCocktail);
     }
   }
 }
