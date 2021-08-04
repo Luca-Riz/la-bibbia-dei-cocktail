@@ -16,11 +16,11 @@
 
             <div class="card-text" >
               <ul>
-                <li v-if="this.infoCocktail.strIngredient1 != null ">{{this.infoCocktail.strIngredient1}}</li>  
-                <li v-if="this.infoCocktail.strIngredient2 != null ">{{this.infoCocktail.strIngredient2}}</li>  
-                <li v-if="this.infoCocktail.strIngredient3 != null ">{{this.infoCocktail.strIngredient3}}</li>  
-                <li v-if="this.infoCocktail.strIngredient4 != null ">{{this.infoCocktail.strIngredient4}}</li>  
-                <li v-if="this.infoCocktail.strIngredient5 != null ">{{this.infoCocktail.strIngredient5}}</li>  
+                <li v-if="this.infoCocktail.strIngredient1">{{this.infoCocktail.strIngredient1}}</li>  
+                <li v-if="this.infoCocktail.strIngredient2">{{this.infoCocktail.strIngredient2}}</li>  
+                <li v-if="this.infoCocktail.strIngredient3">{{this.infoCocktail.strIngredient3}}</li>  
+                <li v-if="this.infoCocktail.strIngredient4">{{this.infoCocktail.strIngredient4}}</li>  
+                <li v-if="this.infoCocktail.strIngredient5">{{this.infoCocktail.strIngredient5}}</li>  
               </ul>
             </div>
 
@@ -46,16 +46,19 @@ export default {
     return {
       loaded: false,
       urlInfo: '',
-      infoCocktail: ''
+      infoCocktail: '',
+      precIdDrink: '',
+      cancelSource: null
     }
   },
   methods: {
     loading(){
       this.loaded = true;
     },
+
     info(){
       this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
-      console.log(this.urlInfo);
+      // console.log(this.urlInfo);
       this.infoCocktail = axios
                               .get(this.urlInfo)
                               .then(response => (this.infoCocktail = response.data.drinks[0]))
