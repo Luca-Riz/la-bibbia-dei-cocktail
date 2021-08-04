@@ -33,11 +33,11 @@
       
       <div class="container container-sm">
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
-          <div v-if="searchCocktail !== null">
-            <Drink v-for="(cocktail, index) in limitCocktail" :key="index" :drink="cocktail"/>
+          <div v-if="limitCocktail.length">
+            <Drink v-for="cocktail in limitCocktail" :key="cocktail.idDrink" :drink="cocktail"/>
           </div>
-          <div v-else>
-            <h3>Nessun cocktail trovato, riprova.</h3>
+          <div v-else-if="notFound">
+            <h3>Nessun cocktail trovato, esegui una ricerca diversa</h3>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
 <script>
 import Drink from './components/Drink.vue'
 import Search from './components/Search.vue'
-import axios from './axios.js';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -67,17 +67,24 @@ export default {
       limitCocktail: [],
       searchCocktail: [],
       statusSearch: false,
+      cancelSource: null,
+      notFound: false,
       limit: 10,
       busy: false
     }
   },
   async mounted(){
-    let resultCocktail = await axios('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
-    this.listCocktail = resultCocktail.drinks;
+    try{
+      let response = await axios.get('https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1');
+      this.listCocktail = response.data;
+    }catch(error){
+      console.log(error);
+    }
 
     this.loadMore();
   },
   methods: {
+    //caricamendo dinamico
     loadMore(){
       let property = 'listCocktail';
       if(this.statusSearch){
@@ -88,19 +95,52 @@ export default {
       this.limitCocktail = this.limitCocktail.concat(append);
       this.busy = false;
     },
+    //Funzione per la ricerca dei cocktail
     async search(word){
-      let itemsSearch = [];
-      if(word){
-        itemsSearch = await axios('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + word);
-        this.statusSearch = true;
-      } else {
-        itemsSearch = [];
+      
+      this.cancelSearch();
+      this.cancelSource = axios.CancelToken.source();
+
+      if(!word)
+      {
+        // settiamo le variabili
+        this.notFound = false;
         this.statusSearch = false;
+        this.searchCocktail = [];
+
+      } else {
+        //Ricerca attiva
+        this.statusSearch = true;
+
+        try{
+
+          let response = await axios.get('https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1&word=' + word, {
+            cancelToken: this.cancelSource.token
+          });
+          this.searchCocktail = response.data;
+          this.cancelSource = null;
+
+          // impostiamo la variabile se la ricerca non ha trovato risultati
+          if(this.searchCocktail.length){
+            this.notFound = false;
+          } else {
+            this.notFound = true;
+          }
+
+        }catch(error){
+          //console.log(error);
+        }
+
       }
-      this.searchCocktail = itemsSearch.drinks;
+    
       this.limitCocktail = [];
-      if(this.searchCocktail !== null){
-        this.loadMore();
+      this.loadMore();
+
+    },
+    cancelSearch() {
+      if (this.cancelSource) {
+        this.cancelSource.cancel('Attendere che la richiesta finisca prima di processarne una nuova');
+        //console.log('richiesta cancellata con successo');
       }
     }
   }
@@ -123,6 +163,5 @@ export default {
   font-size: 1.3rem;
   font-weight: 700;
 }
-
 // fine content header
 </style>
