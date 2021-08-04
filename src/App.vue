@@ -77,6 +77,7 @@ export default {
     try{
       let response = await axios.get('https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1');
       this.listCocktail = response.data;
+      console.log(response);
     }catch(error){
       console.log(error);
     }

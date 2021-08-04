@@ -14,13 +14,13 @@
 
             <!-- classi ingredienti api scritte direttamente come testo -->
 
-            <div class="card-text" v-for="(value, index) in infoCocktail" :key="index">
+            <div class="card-text" >
               <ul>
-                <li v-if="value.strIngredient1 != null ">{{value.strIngredient1}}</li>  
-                <li v-if="value.strIngredient2 != null ">{{value.strIngredient2}}</li>  
-                <li v-if="value.strIngredient3 != null ">{{value.strIngredient3}}</li>  
-                <li v-if="value.strIngredient4 != null ">{{value.strIngredient4}}</li>  
-                <li v-if="value.strIngredient5 != null ">{{value.strIngredient5}}</li>  
+                <li v-if="this.infoCocktail.strIngredient1 != null ">{{this.infoCocktail.strIngredient1}}</li>  
+                <li v-if="this.infoCocktail.strIngredient2 != null ">{{this.infoCocktail.strIngredient2}}</li>  
+                <li v-if="this.infoCocktail.strIngredient3 != null ">{{this.infoCocktail.strIngredient3}}</li>  
+                <li v-if="this.infoCocktail.strIngredient4 != null ">{{this.infoCocktail.strIngredient4}}</li>  
+                <li v-if="this.infoCocktail.strIngredient5 != null ">{{this.infoCocktail.strIngredient5}}</li>  
               </ul>
             </div>
 
@@ -55,12 +55,12 @@ export default {
     },
     info(){
       this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
-      // console.log(this.urlInfo);
+      console.log(this.urlInfo);
       this.infoCocktail = axios
                               .get(this.urlInfo)
                               .then(response => (this.infoCocktail = response.data.drinks[0]))
                               .catch(error => console.log(error));
-      // console.log(this.infoCocktail);
+      console.log(this.infoCocktail);
     }
   }
 }
