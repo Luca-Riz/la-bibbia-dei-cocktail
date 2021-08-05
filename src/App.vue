@@ -75,7 +75,7 @@ export default {
   },
   async mounted(){
     try{
-      let response = await axios.get('https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1');
+      let response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
       this.listCocktail = response.data;
       console.log(response);
     }catch(error){
@@ -115,7 +115,7 @@ export default {
 
         try{
 
-          let response = await axios.get('https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1&word=' + word, {
+          let response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + word, {
             cancelToken: this.cancelSource.token
           });
           this.searchCocktail = response.data;
