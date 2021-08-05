@@ -76,7 +76,7 @@ export default {
   async mounted(){
     try{
       let response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
-      this.listCocktail = response.data;
+      this.listCocktail = response.data.drinks;
       console.log(response);
     }catch(error){
       console.log(error);
@@ -118,7 +118,7 @@ export default {
           let response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + word, {
             cancelToken: this.cancelSource.token
           });
-          this.searchCocktail = response.data;
+          this.searchCocktail = response.data.drinks;
           this.cancelSource = null;
 
           // impostiamo la variabile se la ricerca non ha trovato risultati
