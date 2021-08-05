@@ -3,7 +3,6 @@
         <div class="input-icon">
             <input class="input-search" @input="search" type="text" name="search" placeholder="Cerca...">
             <i class="fas fa-search"></i>
-            {{ keywords }}
         </div>
     </form>
 </template>
@@ -11,11 +10,6 @@
 <script>
 export default {
   name: 'Search',
-  data(){
-    return {
-      keywords: ''
-    }
-  },
   methods: {
     search(event){
       this.$emit('keywords', event.target.value);
