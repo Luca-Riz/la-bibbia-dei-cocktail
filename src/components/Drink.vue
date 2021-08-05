@@ -13,7 +13,7 @@
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
             <!-- classi ingredienti api scritte direttamente come testo -->
-            <div class="card-text">
+            <div class="card-text" :class="(check) ? 'none' : ''">
               <ul>
                 <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>
                 <li v-if="infoCocktail.strIngredient2">{{infoCocktail.strIngredient2}}</li>
@@ -46,7 +46,7 @@ export default {
       urlInfo: '',
       infoCocktail: '',
       precIdDrink: '',
-      cancelSource: null
+      check: true
     }
   },
   methods: {
@@ -55,14 +55,23 @@ export default {
     },
 
     info(){
-      this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
-      // console.log(this.urlInfo);
-      this.infoCocktail = axios
-                              .get(this.urlInfo)
-                              .then(response => (this.infoCocktail = response.data.drinks[0]))
-                              .catch(error => console.log(error));
-      console.log(this.infoCocktail);
-    }
+      if(this.check){
+        
+        this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
+        // console.log(this.urlInfo);
+        this.infoCocktail = axios
+                                .get(this.urlInfo)
+                                .then(response => (this.infoCocktail = response.data.drinks[0]))
+                                .catch(error => console.log(error));
+        console.log(this.infoCocktail);
+        this.check = false;
+        console.log('if change in ' + this.check);
+      }  else {
+        this.check = true;
+        console.log('else change in ' + this.check);
+        console.log('idDrink ' +this.infoCocktail.idDrink);
+      }    
+    },
   }
 }
 </script>
@@ -78,6 +87,10 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.none {
+  display: none;
 }
 
 </style>
