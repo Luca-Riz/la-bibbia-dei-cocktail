@@ -1,7 +1,7 @@
 <template>
     <form>
         <div class="input-icon">
-            <input class="input-search" v-model="keywords" @input="search" type="text" name="search" placeholder="Cerca...">
+            <input class="input-search" @input="search" type="text" name="search" placeholder="Cerca...">
             <i class="fas fa-search"></i>
             {{ keywords }}
         </div>
@@ -17,8 +17,8 @@ export default {
     }
   },
   methods: {
-    search(){
-      this.$emit('keywords', this.keywords);
+    search(event){
+      this.$emit('keywords', event.target.value);
     }
   }
 }
