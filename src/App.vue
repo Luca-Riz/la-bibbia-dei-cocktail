@@ -98,7 +98,7 @@ export default {
     },
     //Funzione per la ricerca dei cocktail
     async search(word){
-      
+      alert('stai scrivendo!');
       this.cancelSearch();
       this.cancelSource = axios.CancelToken.source();
 
