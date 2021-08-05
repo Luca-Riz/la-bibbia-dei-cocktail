@@ -1,7 +1,7 @@
 <template>
     <form>
         <div class="input-icon">
-            <input class="input-search" v-model="keywords" @keyup="search" type="text" name="search" placeholder="Cerca...">
+            <input class="input-search" v-model="keywords" @input="search" type="text" name="search" placeholder="Cerca...">
             <i class="fas fa-search"></i>
             {{ keywords }}
         </div>
