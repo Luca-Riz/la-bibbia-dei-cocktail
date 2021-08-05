@@ -91,14 +91,14 @@ export default {
       if(this.statusSearch){
         property = 'searchCocktail';
       } 
-      this.busy = true;
+      //this.busy = true;
       const append = this[property].slice(this.limitCocktail.length, this.limitCocktail.length + this.limit);
       this.limitCocktail = this.limitCocktail.concat(append);
-      this.busy = false;
+      //this.busy = false;
     },
     //Funzione per la ricerca dei cocktail
     async search(word){
-      console.log(word, !!word);
+      
       this.cancelSearch();
       this.cancelSource = axios.CancelToken.source();
 
