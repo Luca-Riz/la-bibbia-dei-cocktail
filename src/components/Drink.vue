@@ -13,7 +13,7 @@
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
             <!-- classi ingredienti api scritte direttamente come testo -->
-            <div class="card-text" :class="(check == true) ? 'none' : ''">
+            <div class="card-text" :class="(check) ? 'none' : ''">
               <ul>
                 <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>
                 <li v-if="infoCocktail.strIngredient2">{{infoCocktail.strIngredient2}}</li>
@@ -64,13 +64,13 @@ export default {
                                 .then(response => (this.infoCocktail = response.data.drinks[0]))
                                 .catch(error => console.log(error));
         console.log(this.infoCocktail);
-        console.log(this.check);
         this.check = false;
+        console.log('if change in ' + this.check);
       }  else {
-        console.log(this.check);
         this.check = true;
+        console.log('else change in ' + this.check);
+        console.log('idDrink ' +this.infoCocktail.idDrink);
       }    
-
     },
   }
 }
