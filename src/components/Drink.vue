@@ -22,7 +22,8 @@
                 <li v-if="infoCocktail.strIngredient5">{{infoCocktail.strIngredient5}}</li>
               </ul>
             </div>
-            <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
+
+            <!-- prezzo -->
             <p class="card-text"><small class="text-muted">Prezzo: {{drink.price}} € </small></p>
             <button @click='info' >Info</button>
           </div>
