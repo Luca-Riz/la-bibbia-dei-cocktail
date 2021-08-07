@@ -12,9 +12,9 @@
             <!-- name "strDrink"-->
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
-            <!-- classi ingredienti api scritte direttamente come testo -->
             <div class="card-text" :class="(check) ? 'none' : ''">
               <ul>
+                <!-- ingredienti -->
                 <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>
                 <li v-if="infoCocktail.strIngredient2">{{infoCocktail.strIngredient2}}</li>
                 <li v-if="infoCocktail.strIngredient3">{{infoCocktail.strIngredient3}}</li>
@@ -22,7 +22,8 @@
                 <li v-if="infoCocktail.strIngredient5">{{infoCocktail.strIngredient5}}</li>
               </ul>
             </div>
-            <!-- '$pStrDrink' variabile da popolare noi su file prezzi-->
+
+            <!-- prezzo -->
             <p class="card-text"><small class="text-muted">Prezzo: {{drink.price}} € </small></p>
             <button @click='info' >Info</button>
           </div>
@@ -45,7 +46,6 @@ export default {
       loaded: false,
       urlInfo: '',
       infoCocktail: '',
-      precIdDrink: '',
       check: true
     }
   },
