@@ -30,18 +30,10 @@
     <!-- fine header -->
     <!-- inizio contenuto principale -->
     <main>
-      
       <div class="container container-sm">
-        <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
-          <div v-if="limitCocktail.length">
-            <Drink v-for="cocktail in limitCocktail" :key="cocktail.idDrink" :drink="cocktail"/>
-          </div>
-          <div v-else-if="notFound">
-            <h3>Nessun cocktail trovato, esegui una ricerca diversa</h3>
-          </div>
-        </div>
+        <InfiniteScroll v-if="!statusSearch" class="infi-scroll" url="https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"/>
+        <InfiniteScroll v-else class="infi-scroll" :url="'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + keywords" :key="index"/>
       </div>
-
     </main>
     <!-- fine contenuto principale -->
     <!-- inizio piè di pagina -->
@@ -51,97 +43,37 @@
 </template>
 
 <script>
-import Drink from './components/Drink.vue'
-import Search from './components/Search.vue'
-import axios from 'axios';
+import Search from './components/Search.vue';
+import InfiniteScroll from "./components/InfiniteScroll";
 
 export default {
   name: 'App',
   components: {
-    Drink,
-    Search
+    Search,
+    InfiniteScroll
   },
   data(){
     return {
-      listCocktail: [],
-      limitCocktail: [],
-      searchCocktail: [],
-      statusSearch: false,
-      cancelSource: null,
-      notFound: false,
-      limit: 10,
-      busy: false
+      keywords: '',
+      index: 0,
+      statusSearch: false
     }
-  },
-  async mounted(){
-    try{
-      let response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
-      this.listCocktail = response.data.drinks;
-      console.log(response);
-    }catch(error){
-      console.log(error);
-    }
-
-    this.loadMore();
   },
   methods: {
-    //caricamendo dinamico
-    loadMore(){
-      let property = 'listCocktail';
-      if(this.statusSearch){
-        property = 'searchCocktail';
-      } 
-      //this.busy = true;
-      const append = this[property].slice(this.limitCocktail.length, this.limitCocktail.length + this.limit);
-      this.limitCocktail = this.limitCocktail.concat(append);
-      //this.busy = false;
-    },
     //Funzione per la ricerca dei cocktail
-    async search(word){
-      
-      this.cancelSearch();
-      this.cancelSource = axios.CancelToken.source();
+    search(word){
 
       if(!word)
       {
-        // settiamo le variabili
-        this.notFound = false;
+        // Ricerca inattiva, settiamo le variabili
+        this.index = 0;
         this.statusSearch = false;
-        this.searchCocktail = [];
 
       } else {
         //Ricerca attiva
+        this.keywords = word;
+        this.index++;
         this.statusSearch = true;
-
-        try{
-
-          let response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + word, {
-            cancelToken: this.cancelSource.token
-          });
-          this.searchCocktail = response.data.drinks;
-          this.cancelSource = null;
-
-          // impostiamo la variabile se la ricerca non ha trovato risultati
-          if(this.searchCocktail.length){
-            this.notFound = false;
-          } else {
-            this.notFound = true;
-          }
-
-        }catch(error){
-          //console.log(error);
-        }
-
-      }
-    
-      this.limitCocktail = [];
-      this.loadMore();
-
-    },
-    cancelSearch() {
-      if (this.cancelSource) {
-        this.cancelSource.cancel('Attendere che la richiesta finisca prima di processarne una nuova');
-        //console.log('richiesta cancellata con successo');
       }
     }
   }
@@ -165,4 +97,15 @@ export default {
   font-weight: 700;
 }
 // fine content header
+
+main .container {
+  height: 85vh;
+
+  .infi-scroll {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+  }
+}
 </style>
