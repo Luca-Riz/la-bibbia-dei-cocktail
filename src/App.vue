@@ -99,7 +99,7 @@ export default {
 // fine content header
 
 main .container {
-  height: 80vh;
+  height: 70vh;
 
   .infi-scroll {
     width: 100%;
