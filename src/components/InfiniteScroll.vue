@@ -1,5 +1,5 @@
 <template>
-  <div class="infi-scroll-comp-root">
+  <div v-if="!notFound" class="infi-scroll-comp-root">
     <div class="scroll-container" ref="scrollContainer" v-if="!initialLoad">
       <div ref="listContainer">
         <div v-for="(item, index) in list" :key="index">
@@ -11,6 +11,9 @@
       <div v-if="canLoadMore" class="loadingMore">CARICAMENTO .....</div>
     </div>
     <div class="initialLoad" v-else>CARICAMENTO LISTA COKTAIL .....</div>
+  </div>
+  <div v-else>
+    <h3>Nessun Cocktail trovato, fai una ricerca diversa</h3>
   </div>
 </template>
 
@@ -106,6 +109,12 @@ export default {
           let response = await axios.get(this.url);
           this.responseApi = response.data.drinks;
           //console.log(this.responseApi);
+          if( this.responseApi ){
+            this.notFound = false;
+          } else {
+            this.notFound = true;
+            return [];
+          }
         }catch(error){
           console.log(error);
         }
