@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form v-on:submit.prevent>
         <div class="input-icon">
             <input class="input-search" @input="search" type="text" name="search" placeholder="Cerca...">
             <i class="fas fa-search"></i>
