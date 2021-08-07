@@ -31,8 +31,8 @@
     <!-- inizio contenuto principale -->
     <main>
       <div class="container container-sm">
-        <InfiniteScroll v-if="!statusSearch" class="infi-scroll" url="https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"/>
-        <InfiniteScroll v-else class="infi-scroll" :url="'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + keywords" :key="index"/>
+        <InfiniteScroll v-if="!statusSearch" class="infi-scroll" url="https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1"/>
+        <InfiniteScroll v-else class="infi-scroll" :url="'https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1&word=' + keywords" :key="index"/>
       </div>
     </main>
     <!-- fine contenuto principale -->

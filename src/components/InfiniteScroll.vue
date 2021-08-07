@@ -107,9 +107,9 @@ export default {
       if( !this.responseApi.length ){
         try{
           let response = await axios.get(this.url);
-          this.responseApi = response.data.drinks;
+          this.responseApi = response.data;
           //console.log(this.responseApi);
-          if( this.responseApi ){
+          if( this.responseApi.length ){
             this.notFound = false;
           } else {
             this.notFound = true;
