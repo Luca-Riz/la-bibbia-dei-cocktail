@@ -12,7 +12,7 @@
             <!-- name "strDrink"-->
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
-            <div class="card-text" :class="(checkListActive !== this.drink.idDrink) ? 'none' : ''">
+            <div class="card-text" :class="(checkListActive !== drink.idDrink) ? 'none' : ''">
               <ul>
                 <!-- ingredienti -->
                 <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>
@@ -25,7 +25,7 @@
 
             <!-- prezzo -->
             <p class="card-text"><small class="text-muted">Prezzo: {{drink.price}} € </small></p>
-            <button @click='info' >Info</button>
+            <button @click='info'>Info</button>
           </div>
         </div>
       </div>
