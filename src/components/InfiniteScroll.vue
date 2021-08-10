@@ -3,7 +3,7 @@
     <div class="scroll-container" ref="scrollContainer" v-if="!initialLoad">
       <div ref="listContainer">
         <div v-for="(item, index) in list" :key="index">
-          <Drink :drink="item"/>
+          <Drink :drink="item" :checkListActive="statusCheckInfo"/>
         </div>
       </div>
       <div class="sentinel" ref="sentinel"></div>
@@ -20,6 +20,7 @@
 <script>
 import Drink from '@/components/Drink.vue';
 import axios from 'axios';
+import {eventBus} from '@/main.js';
 
 export default {
   components: {
@@ -27,6 +28,12 @@ export default {
   },
   props: {
     url: String
+  },
+  created(){
+    //Ritorno risposta event bus componente
+    eventBus.$on('checkEmit', (id) => {
+      this.statusCheckInfo = id;
+    });
   },
   mounted() {
     //load first page
@@ -52,6 +59,7 @@ export default {
       list: [],
       responseApi: [],
       notFound: false,
+      statusCheckInfo: '',
       /**
        * if we extracted infinite-scroll to a generic component,
        * it would need just these props.loadingMore,canLoadMore and the list
@@ -131,7 +139,7 @@ export default {
           rej(new Error("No more items to load"));
         }
       });
-    },
+    }
   },
 };
 </script>

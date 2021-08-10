@@ -56,7 +56,8 @@ export default {
     return {
       keywords: '',
       index: 0,
-      statusSearch: false
+      statusSearch: false,
+      statusCheckInfo: '',
     }
   },
   methods: {

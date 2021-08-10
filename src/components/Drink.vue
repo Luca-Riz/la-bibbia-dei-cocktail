@@ -12,7 +12,7 @@
             <!-- name "strDrink"-->
             <h5 class="card-title">{{drink.strDrink}}</h5>
 
-            <div class="card-text" :class="(check) ? 'none' : ''">
+            <div class="card-text" :class="(checkListActive !== this.drink.idDrink) ? 'none' : ''">
               <ul>
                 <!-- ingredienti -->
                 <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>
@@ -35,18 +35,18 @@
 
 <script>
 import axios from 'axios';
+import {eventBus} from '@/main.js';
 
 export default {
   name: 'Drink',
   props: {
-    drink: Object
+    drink: Object,
+    checkListActive: String
   },
   data(){
     return {
       loaded: false,
-      urlInfo: '',
       infoCocktail: '',
-      check: true
     }
   },
   methods: {
@@ -55,23 +55,20 @@ export default {
     },
 
     info(){
-      if(this.check){
-        
-        this.urlInfo = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
-        // console.log(this.urlInfo);
+      if(this.checkListActive === this.drink.idDrink){
+        eventBus.$emit('checkEmit', '');
+        return;
+      }
+      //Request call axios
+      const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.drink.idDrink;
         this.infoCocktail = axios
-                                .get(this.urlInfo)
-                                .then(response => (this.infoCocktail = response.data.drinks[0]))
-                                .catch(error => console.log(error));
-        console.log(this.infoCocktail);
-        this.check = false;
-        console.log('if change in ' + this.check);
-      }  else {
-        this.check = true;
-        console.log('else change in ' + this.check);
-        console.log('idDrink ' +this.infoCocktail.idDrink);
-      }    
-    },
+          .get(url)
+          .then(response => (this.infoCocktail = response.data.drinks[0]))
+          .catch(error => console.log(error));
+
+      //Event emit
+      eventBus.$emit('checkEmit', this.drink.idDrink);
+    }
   }
 }
 </script>
