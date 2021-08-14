@@ -31,8 +31,8 @@
     <!-- inizio contenuto principale -->
     <main>
       <div class="container container-sm">
-        <InfiniteScroll v-if="!statusSearch" class="infi-scroll" url="https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1"/>
-        <InfiniteScroll v-else class="infi-scroll" :url="'https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=1&word=' + keywords" :key="index"/>
+        <InfiniteScroll v-if="!statusSearch" class="infi-scroll" :url="'https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=' + shopId"/>
+        <InfiniteScroll v-else class="infi-scroll" :url="'https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=' + shopId + '&word=' + keywords" :key="index"/>
       </div>
     </main>
     <!-- fine contenuto principale -->
@@ -58,7 +58,13 @@ export default {
       index: 0,
       statusSearch: false,
       statusCheckInfo: '',
+      shopId: null
     }
+  },
+  created(){
+    const urlString = window.location.href;
+    const url = new URL(urlString);
+    this.shopId = url.searchParams.get('shop');
   },
   methods: {
     //Funzione per la ricerca dei cocktail
