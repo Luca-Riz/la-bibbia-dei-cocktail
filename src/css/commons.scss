@@ -28,6 +28,13 @@ body{
     cursor: pointer
 }
 
+ul, li {list-style-type: none;}
+ul, li {text-indent: -2em;}
+
+.none {
+    display: none;
+  }
+
 input:focus {
     outline: 0;
 }

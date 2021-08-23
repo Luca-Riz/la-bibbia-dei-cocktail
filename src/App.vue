@@ -14,7 +14,11 @@
           </div>
           <div class="col col-sm">
             <div class="text-end">
-              <span class="filter cursor-pointer">Filtri</span>
+              <span @click='filter' class="filter cursor-pointer">Filtri</span>
+              <ul class="contrast_text2" :class="(filterDisplay == false) ? 'none' : ''">
+                <li class="cursor-pointer">Minimo</li>
+                <li class="cursor-pointer">Massimo</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -58,7 +62,8 @@ export default {
       index: 0,
       statusSearch: false,
       statusCheckInfo: '',
-      shopId: null
+      shopId: null,
+      filterDisplay: false
     }
   },
   created(){
@@ -81,6 +86,14 @@ export default {
         this.keywords = word;
         this.index++;
         this.statusSearch = true;
+      }
+    },
+
+    filter(){
+      if (this.filterDisplay == false){
+        this.filterDisplay = true
+      } else {
+        this.filterDisplay = false
       }
     }
   }

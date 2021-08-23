@@ -105,10 +105,6 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.none {
-  display: none;
-}
-
 button {
   float: right;
 }
@@ -116,10 +112,6 @@ button {
 .left {
   float: left;
 }
-
-ul, li {list-style-type: none;}
-
-ul, li {text-indent: -2em;}
 
 .ingredients {
   width: calc(100% - 38px);
