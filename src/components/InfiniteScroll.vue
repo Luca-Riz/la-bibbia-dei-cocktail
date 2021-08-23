@@ -2,8 +2,15 @@
   <div v-if="!notFound" class="infi-scroll-comp-root">
     <div class="scroll-container" ref="scrollContainer" v-if="!initialLoad">
       <div ref="listContainer">
-        <div v-for="(item, index) in list" :key="index">
-          <Drink :drink="item" :checkListActive="statusCheckInfo"/>
+        <div v-if="!listFiltered.length">
+          <div v-for="(item, index) in list" :key="index">
+            <Drink :drink="item" :checkListActive="statusCheckInfo"/>
+          </div>
+        </div>
+        <div v-else> 
+          <div v-for="(item, index) in listFiltered" :key="index">
+            <Drink :drink="item" :checkListActive="statusCheckInfo"/>
+          </div>
         </div>
       </div>
       <div class="sentinel" ref="sentinel"></div>
@@ -15,6 +22,7 @@
   <div v-else>
     <h3 class="contrast_text">Nessun Cocktail trovato, fai una ricerca diversa</h3>
   </div>
+
 </template>
 
 <script>
@@ -33,6 +41,28 @@ export default {
     //Ritorno risposta event bus componente
     eventBus.$on('checkEmit', (id) => {
       this.statusCheckInfo = id;
+    });
+
+    // ritorna risposta event sul filtro del prezzo
+      eventBus.$on('activePriceFilter', (value) => {
+        // alert(value);
+        this.listFiltered = this.list.slice();
+        // if(value == 'min'){
+        //   this.listFiltered = this.listFiltered.sort((a, b) => a.price - b.price)
+        // } else {
+        //   this.listFiltered = this.listFiltered.sort((a, b) => b.price - a.price)
+        // }
+        switch (value) {
+          case 'min':
+            this.listFiltered = this.listFiltered.sort((a, b) => a.price - b.price);
+            break;
+          case 'max':
+            this.listFiltered = this.listFiltered.sort((a, b) => b.price - a.price);
+            break;
+          case 'reset':
+            this.listFiltered = [];
+            break;
+        }
     });
   },
   mounted() {
@@ -57,6 +87,7 @@ export default {
   data() {
     return {
       list: [],
+      listFiltered: [],
       responseApi: [],
       notFound: false,
       statusCheckInfo: '',
@@ -139,7 +170,7 @@ export default {
           rej(new Error("No more items to load"));
         }
       });
-    }
+    },
   },
 };
 </script>

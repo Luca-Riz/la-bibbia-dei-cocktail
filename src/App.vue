@@ -1,3 +1,5 @@
+// aggiungere "?shop=1" dopo url per debug
+
 <template>
   <div id="app">
     <!-- inizio header -->
@@ -16,8 +18,9 @@
             <div class="text-end">
               <span @click='filter' class="filter cursor-pointer">Filtri</span>
               <ul class="contrast_text2" :class="(filterMenuDisplay == false) ? 'none' : ''">
-                <li class="cursor-pointer">Minimo</li>
-                <li class="cursor-pointer">Massimo</li>
+                <li @click='activePriceFilter("min")' class="cursor-pointer">€ Minimo</li>
+                <li @click='activePriceFilter("max")' class="cursor-pointer">€ Massimo</li>
+                <li @click='activePriceFilter("reset")' class="cursor-pointer">Reset</li>
               </ul>
             </div>
           </div>
@@ -49,6 +52,7 @@
 <script>
 import Search from './components/Search.vue';
 import InfiniteScroll from "./components/InfiniteScroll";
+import {eventBus} from '@/main.js';
 
 export default {
   name: 'App',
@@ -95,6 +99,10 @@ export default {
       } else {
         this.filterMenuDisplay = false
       }
+    },
+
+    activePriceFilter(value){
+      eventBus.$emit('activePriceFilter', value);
     }
   }
 }

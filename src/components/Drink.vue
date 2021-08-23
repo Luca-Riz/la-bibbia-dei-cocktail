@@ -13,7 +13,6 @@
             <h6 class="card-title contrast_text"><strong>{{drink.strDrink}}</strong></h6>
 
             <!-- prezzo -->
-            <!-- vecchio formato <p class="card-text left"><small class="text-muted">Prezzo: {{drink.price}} € </small></p> -->
             <h6 class="card-text left"><strong class="contrast_text2">Prezzo: {{drink.price}} € </strong></h6>
             <button @click='info' type="button" class="btn btn-outline-danger">
               <i class="fas fa-info"></i>
@@ -47,7 +46,8 @@ export default {
   name: 'Drink',
   props: {
     drink: Object,
-    checkListActive: String
+    checkListActive: String,
+    cocktailList: Array
   },
   data(){
     return {
