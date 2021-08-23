@@ -15,7 +15,7 @@
           <div class="col col-sm">
             <div class="text-end">
               <span @click='filter' class="filter cursor-pointer">Filtri</span>
-              <ul class="contrast_text2" :class="(filterDisplay == false) ? 'none' : ''">
+              <ul class="contrast_text2" :class="(filterMenuDisplay == false) ? 'none' : ''">
                 <li class="cursor-pointer">Minimo</li>
                 <li class="cursor-pointer">Massimo</li>
               </ul>
@@ -63,7 +63,7 @@ export default {
       statusSearch: false,
       statusCheckInfo: '',
       shopId: null,
-      filterDisplay: false
+      filterMenuDisplay: false
     }
   },
   created(){
@@ -90,10 +90,10 @@ export default {
     },
 
     filter(){
-      if (this.filterDisplay == false){
-        this.filterDisplay = true
+      if (this.filterMenuDisplay == false){
+        this.filterMenuDisplay = true
       } else {
-        this.filterDisplay = false
+        this.filterMenuDisplay = false
       }
     }
   }
