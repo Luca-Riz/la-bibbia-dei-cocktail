@@ -10,6 +10,12 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 .cursor-pointer{
     cursor: pointer
 }

@@ -1,31 +1,37 @@
 <template>
   <div>
-    <div class="card mb-3" style="max-width: 540px;">
+    <div class="card rounded-0" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-4 position-relative">
           <!-- src class in api "strImageSource"; alt name "strDrink"-->
           <div v-show="!loaded" class="lds-dual-ring loaded-center"></div>
-          <img v-show="loaded" :src="drink.strDrinkThumb" class="img-fluid rounded-start" :alt="drink.strDrink" @load="loading">
+          <img v-show="loaded" :src="drink.strDrinkThumb" class="img-fluid" :alt="drink.strDrink" @load="loading">
         </div>
         <div class="col-8 fs08">
-          <div class="card-body">
+          <div class="card-body clearfix">
             <!-- name "strDrink"-->
-            <h5 class="card-title">{{drink.strDrink}}</h5>
-
-            <div class="card-text" :class="(checkListActive !== drink.idDrink) ? 'none' : ''">
-              <ul>
-                <!-- ingredienti -->
-                <li v-if="infoCocktail.strIngredient1">{{infoCocktail.strIngredient1}}</li>
-                <li v-if="infoCocktail.strIngredient2">{{infoCocktail.strIngredient2}}</li>
-                <li v-if="infoCocktail.strIngredient3">{{infoCocktail.strIngredient3}}</li>
-                <li v-if="infoCocktail.strIngredient4">{{infoCocktail.strIngredient4}}</li>
-                <li v-if="infoCocktail.strIngredient5">{{infoCocktail.strIngredient5}}</li>
-              </ul>
-            </div>
+            <h6 class="card-title"><strong>{{drink.strDrink}}</strong></h6>
 
             <!-- prezzo -->
-            <p class="card-text"><small class="text-muted">Prezzo: {{drink.price}} € </small></p>
-            <button @click='info'>Info</button>
+            <!-- vecchio formato <p class="card-text left"><small class="text-muted">Prezzo: {{drink.price}} € </small></p> -->
+            <h6 class="card-text left"><strong class="text-muted">Prezzo: {{drink.price}} € </strong></h6>
+            <button @click='info' type="button" class="btn btn-outline-danger">
+              <i class="fas fa-info"></i>
+            </button>
+
+            <div class="card-text left ingredients" :class="(checkListActive !== drink.idDrink) ? 'none' : ''">
+              <div v-if="infoCocktail.strIngredient1"><em>Ingredienti:</em></div>
+              <ul>
+                <!-- ingredienti -->
+                <li v-if="infoCocktail.strIngredient1">- {{infoCocktail.strIngredient1}}</li>
+                <li v-if="infoCocktail.strIngredient2">- {{infoCocktail.strIngredient2}}</li>
+                <li v-if="infoCocktail.strIngredient3">- {{infoCocktail.strIngredient3}}</li>
+                <li v-if="infoCocktail.strIngredient4">- {{infoCocktail.strIngredient4}}</li>
+                <li v-if="infoCocktail.strIngredient5">- {{infoCocktail.strIngredient5}}</li>
+                <li v-if="infoCocktail.strIngredient6">- {{infoCocktail.strIngredient6}}</li>
+              </ul>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -75,6 +81,17 @@ export default {
 
 <style lang="scss" scoped>
 
+.card{
+  border: transparent;
+  border-bottom: 1px solid lightgrey;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.card-body{
+  padding-bottom: 0;
+}
+
 .fs08{
   font-size: 0.8rem;
 }
@@ -88,6 +105,22 @@ export default {
 
 .none {
   display: none;
+}
+
+button {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+ul, li {list-style-type: none;}
+
+ul, li {text-indent: -2em;}
+
+.ingredients {
+  width: calc(100% - 38px);
 }
 
 </style>
