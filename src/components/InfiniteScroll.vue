@@ -8,12 +8,12 @@
       </div>
       <div class="sentinel" ref="sentinel"></div>
 
-      <div v-if="canLoadMore" class="loadingMore">CARICAMENTO .....</div>
+      <div v-if="canLoadMore" class="loadingMore contrast_text">CARICAMENTO .....</div>
     </div>
-    <div class="initialLoad" v-else>CARICAMENTO LISTA COKTAIL .....</div>
+    <div class="initialLoad contrast_text" v-else>CARICAMENTO LISTA COKTAIL .....</div>
   </div>
   <div v-else>
-    <h3>Nessun Cocktail trovato, fai una ricerca diversa</h3>
+    <h3 class="contrast_text">Nessun Cocktail trovato, fai una ricerca diversa</h3>
   </div>
 </template>
 

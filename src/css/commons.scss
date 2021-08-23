@@ -16,6 +16,14 @@ body{
     display: table;
 }
 
+.contrast_text {
+    color: $text_color;
+}
+
+.contrast_text2 {
+    color: $text_color2;
+}
+
 .cursor-pointer{
     cursor: pointer
 }

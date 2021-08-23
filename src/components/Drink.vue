@@ -10,16 +10,16 @@
         <div class="col-8 fs08">
           <div class="card-body clearfix">
             <!-- name "strDrink"-->
-            <h6 class="card-title"><strong>{{drink.strDrink}}</strong></h6>
+            <h6 class="card-title contrast_text"><strong>{{drink.strDrink}}</strong></h6>
 
             <!-- prezzo -->
             <!-- vecchio formato <p class="card-text left"><small class="text-muted">Prezzo: {{drink.price}} € </small></p> -->
-            <h6 class="card-text left"><strong class="text-muted">Prezzo: {{drink.price}} € </strong></h6>
+            <h6 class="card-text left"><strong class="contrast_text2">Prezzo: {{drink.price}} € </strong></h6>
             <button @click='info' type="button" class="btn btn-outline-danger">
               <i class="fas fa-info"></i>
             </button>
 
-            <div class="card-text left ingredients" :class="(checkListActive !== drink.idDrink) ? 'none' : ''">
+            <div class="card-text left ingredients contrast_text" :class="(checkListActive !== drink.idDrink) ? 'none' : ''">
               <div v-if="infoCocktail.strIngredient1"><em>Ingredienti:</em></div>
               <ul>
                 <!-- ingredienti -->
@@ -80,12 +80,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/css/variables.scss';
 
 .card{
   border: transparent;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid $text_color2;
   padding-top: 5px;
   padding-bottom: 5px;
+  background-color: $background_color;
 }
 
 .card-body{

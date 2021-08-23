@@ -1,7 +1,7 @@
 <template>
     <form v-on:submit.prevent>
         <div class="input-icon">
-            <input class="input-search" @input="search" type="text" name="search" placeholder="Cerca...">
+            <input class="input-search contrast_text" @input="search" type="text" name="search" placeholder="Cerca...">
             <i class="fas fa-search"></i>
         </div>
     </form>
@@ -19,12 +19,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/css/variables.scss';
+
 .input-search{
   width: 100%;
   padding: 6px 6px 6px 40px;
   border-radius: 5px;
-  border: 1px solid gray;
-  background: rgb(240, 238, 238);
+  border: 1px solid $text_color2;
+  background: $background_color;
 }
 
 .input-icon{
@@ -35,7 +37,7 @@ export default {
     left: 10px;
     top: 10px;
     font-size: 1.2rem;
-    color: gray;
+    color: $text_color2;
   }
 }
 </style>

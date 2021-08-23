@@ -10,7 +10,7 @@
             </div>
           </div>
           <div class="col col-sm">
-            <h2 class="text-center sub-menu">Cocktail</h2>
+            <h2 class="text-center sub-menu contrast_text">Cocktail</h2>
           </div>
           <div class="col col-sm">
             <div class="text-end">
@@ -90,6 +90,10 @@ export default {
 <style lang="scss">
 @import '@/css/variables.scss';
 @import '@/css/commons.scss';
+
+#app{
+  background-color: $background_color;
+}
 
 // inizio content header
 .filter,
