@@ -1,5 +1,3 @@
-// aggiungere "?shop=1" dopo url per debug
-
 <template>
   <div id="app">
     <!-- inizio header -->
@@ -38,7 +36,7 @@
     <!-- inizio contenuto principale -->
     <main>
       <div class="container container-sm">
-        <InfiniteScroll v-if="!statusSearch" class="infi-scroll" :url="'https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=' + shopId"/>
+        <InfiniteScroll v-if="!statusSearch" class="infi-scroll" :url="'https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=' + shopId" :filter='searchFilter' :key="filterIndex"/>
         <InfiniteScroll v-else class="infi-scroll" :url="'https://la-bibbia-dei-cocktail-api.herokuapp.com/?shop=' + shopId + '&word=' + keywords" :key="index"/>
       </div>
     </main>
@@ -52,7 +50,6 @@
 <script>
 import Search from './components/Search.vue';
 import InfiniteScroll from "./components/InfiniteScroll";
-import {eventBus} from '@/main.js';
 
 export default {
   name: 'App',
@@ -63,7 +60,9 @@ export default {
   data(){
     return {
       keywords: '',
-      index: 0,
+      index: null,
+      filterIndex: null,
+      searchFilter: null,
       statusSearch: false,
       statusCheckInfo: '',
       shopId: null,
@@ -102,7 +101,8 @@ export default {
     },
 
     activePriceFilter(value){
-      eventBus.$emit('activePriceFilter', value);
+      this.searchFilter = value;
+      this.filterIndex++;
     }
   }
 }
